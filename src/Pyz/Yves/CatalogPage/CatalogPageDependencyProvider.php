@@ -1,29 +1,28 @@
 <?php
 
-declare(strict_types = 1);
+namespace Pyz\Yves\CatalogPage;
 
-namespace Pyz\Client\SnapFind;
-
-use Spryker\Client\Kernel\AbstractDependencyProvider;
-use Spryker\Client\Kernel\Container;
 use Spryker\Client\StorageRedis\StorageRedisClientInterface;
+use Spryker\Yves\Kernel\Container;
+use SprykerShop\Yves\CatalogPage\CatalogPageDependencyProvider as SprykerCatalogPageDependencyProvider;
 
-class SnapFindDependencyProvider extends AbstractDependencyProvider
+class CatalogPageDependencyProvider extends SprykerCatalogPageDependencyProvider
 {
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORAGE_REDIS = 'CLIENT_STORAGE_REDIS';
 
     /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
+     * @param Container $container
+     * @return Container
      */
-    public function provideServiceLayerDependencies(Container $container): Container
+    public function provideDependencies(Container $container)
     {
-
-        $container = parent::provideServiceLayerDependencies($container);
         $container = $this->addStorageRedisClient($container);
 
-        return $container;
+        return parent::provideDependencies($container);
     }
 
     /**
@@ -38,4 +37,6 @@ class SnapFindDependencyProvider extends AbstractDependencyProvider
 
         return $container;
     }
+
+
 }

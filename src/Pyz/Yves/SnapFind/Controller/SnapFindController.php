@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pyz\Yves\SnapFind\Controller;
 
+use Generated\Shared\Transfer\SearchQueryByImageTransfer;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,15 +33,19 @@ class SnapFindController extends AbstractController
             ->getImageUploadForm()
             ->handleRequest($request);
 
-        if ($imageUploadForm->isSubmitted() && $imageUploadForm->isValid()) {
-            $searchQuery = $this->getSearchQueryByImage($imageUploadForm->getData());
+        try {
+            if ($imageUploadForm->isSubmitted() && $imageUploadForm->isValid()) {
+                $searchQueryByImageTransfer = $this->getSearchQueryByImage($imageUploadForm->getData());
 
-            if (!empty($searchQuery)) {
-                $route = static::ROUTE_SEARCH;
+                if ($searchQueryByImageTransfer->getSuccess()) {
+                    $route = static::ROUTE_SEARCH;
 
-                return $this->redirectResponseInternal($route, ['q' => $searchQuery]);
+                    return $this->redirectResponseInternal($route, ['q' => $searchQueryByImageTransfer->getQueryString(), 'imageHash' => $searchQueryByImageTransfer->getRedisImageKey()]);
+                }
+                // todo add some error handling
             }
-            // todo add some error handling
+        } catch (\Exception $e) {
+            dd($e->getMessage());
         }
 
         return $this->view(
@@ -71,7 +76,7 @@ class SnapFindController extends AbstractController
      * @param $formData
      * @return string
      */
-    private function getSearchQueryByImage($formData): string
+    private function getSearchQueryByImage($formData): SearchQueryByImageTransfer
     {
         /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $image */
         $image = $formData['image'];

@@ -30,4 +30,10 @@
         <property name="SnapFindTestString" type="string"/>
         <property name="SnapFindTestInt" type="int"/>
     </transfer>
+
+    <transfer name="SearchQueryByImage">
+        <property name="success" type="bool"/>
+        <property name="redisImageKey" type="string"/>
+        <property name="queryString" type="string"/>
+    </transfer>
 </transfers>

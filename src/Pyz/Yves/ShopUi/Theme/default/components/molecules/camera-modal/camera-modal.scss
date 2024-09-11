@@ -1,0 +1,17 @@
+
+
+@mixin camera-modal($name: '.camera-modal') {
+    #{$name} {
+        .modal {
+            display: none;
+        }
+
+        .modal.is-open {
+            display: block;
+        }
+
+        @content;
+    }
+}
+
+@include camera-modal();

@@ -1,25 +1,25 @@
 import Component from "ShopUi/models/component";
 
-export default class SearchForm extends Component {
+export default class CameraModal extends Component {
     protected button;
-    protected modal;
+    protected canvas;
+    protected video;
+    protected formInput;
 
     protected readyCallback(): void {}
 
     protected init(): void {
-        this.button = <HTMLElement>document.getElementById('cameraButton');
-        this.modal = <HTMLElement>document.getElementById('modal-1');
+        this.button = <HTMLElement>document.getElementById('captureBtn');
+        this.canvas = <HTMLElement>document.getElementById('canvas');
+        this.video = <HTMLElement>document.getElementById('camera');
+        this.formInput = <HTMLElement>document.getElementById('image_upload_form_image');
 
         this.mapEvents();
+        this.startCamera();
     }
 
     protected mapEvents(): void {
-        this.button.addEventListener('click', (event: Event) => this.showModal(event));
-    }
-
-    protected showModal(event) {
-        console.log(this.modal);
-        this.modal.style.display = "block";
+        this.button.addEventListener('click', (event: Event) => this.captureImage(event));
     }
 
     protected captureImage(event) {
@@ -34,31 +34,24 @@ export default class SearchForm extends Component {
 
         // Convert canvas to Blob (binary data)
         this.canvas.toBlob(async function (blob) {
-            // Show the captured image in the img element
-            //const imageUrl = URL.createObjectURL(blob);
-            //img.src = imageUrl;
 
             // Create a FormData object and append the image as a file
             const formData = new FormData();
-            formData.append('image', blob, 'captured_image.jpg');
+            formData.append('image_upload_form[image]', blob, 'captured_image.jpg');
 
             // Send the image to the server
-            /*try {
-                const response = await fetch('http://localhost:4000', {
+            try {
+                const response = await fetch('http://yves.de.spryker.local/snap-find', {
                     method: 'POST',
                     body: formData,
                 });
 
-                const result = await response.json();
-                console.log(result);
-                if (result.success) {
-                    console.log('Image uploaded successfully:', result.image_url);
-                } else {
-                    console.error('Upload failed:', result.message);
-                }
+                const result = await response;
+                console.log(result.url);
+                window.location.href = result.url;
             } catch (error) {
                 console.error('Error uploading image:', error);
-            }*/
+            }
         }, 'image/jpeg'); // Specify the image format (JPEG)
     }
 
@@ -74,3 +67,4 @@ export default class SearchForm extends Component {
         }
     }
 }
+

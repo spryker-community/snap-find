@@ -7,35 +7,25 @@
 
 {% block body %}
 
-    <div id="modal-1" aria-hidden="true" style="display: none; background-color: red">
-
-        <!-- [2] -->
-        <div tabindex="-1" data-micromodal-close>
-
-            <!-- [3] -->
-            <div role="dialog" aria-modal="true" aria-labelledby="modal-1-title" >
-
-
-                <header>
-                    <h2 id="modal-1-title">
-                        Modal Title
-                    </h2>
-
-                    <!-- [4] -->
-                    <button aria-label="Close modal" data-micromodal-close></button>
-                </header>
-
+    <div id="modal-1" style="display: none;" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="closeBtn" id="closeBtn">X</span>
+                <h2>Capture your picture</h2>
+            </div>
+            <div class="modal-body">
                 <div id="modal-1-content">
-                    <video id="camera" autoplay></video>
-
+                    <div class="video-container">
+                        <video id="camera" autoplay></video>
+                    </div>
                     <canvas id="canvas" style="display: none;"></canvas>
-                    <button id="captureBtn" type="button">Capture Image</button>
-
+                    <div>
+                        <button id="captureBtn" class="button button--hollow button--expand-sm-only spacing-top spacing-top--big" type="button">Capture Image</button>
+                    </div>
                     <form name="image_upload_form" method="post" novalidate="novalidate" enctype="multipart/form-data">
-                           <input id="image_upload_form_image" name="image_upload_form[image]" required="" class="input input--expand" type="file" placeholder="snapfind.image" style="visibility: hidden">
+                           <input id="image_upload_form_image" name="image_upload_form[image]" required="" class="input input--expand" type="file" placeholder="snapfind.image" style="visibility: hidden; display: none">
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

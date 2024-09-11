@@ -5,6 +5,8 @@ export default class CameraModal extends Component {
     protected canvas;
     protected video;
     protected formInput;
+    protected modal;
+    protected closeButton;
 
     protected readyCallback(): void {}
 
@@ -13,6 +15,9 @@ export default class CameraModal extends Component {
         this.canvas = <HTMLElement>document.getElementById('canvas');
         this.video = <HTMLElement>document.getElementById('camera');
         this.formInput = <HTMLElement>document.getElementById('image_upload_form_image');
+        this.modal = <HTMLElement>document.getElementById('modal-1');
+        this.closeButton = <HTMLElement>document.getElementById('closeBtn');
+
 
         this.mapEvents();
         this.startCamera();
@@ -20,7 +25,26 @@ export default class CameraModal extends Component {
 
     protected mapEvents(): void {
         this.button.addEventListener('click', (event: Event) => this.captureImage(event));
+        this.closeButton.addEventListener('click', (event: Event) => this.closeModal());
+        window.addEventListener('click', (event: Event) => this.outsideClick(event));
+
+
     }
+
+
+// Close modal
+    protected closeModal(){
+        this.modal.style.display = 'none';
+    }
+
+// Click outside and close
+    protected outsideClick(e){
+        console.log(e.target, this.modal);
+        if(e.target == this.modal){
+            this.modal.style.display = 'none';
+        }
+    }
+
 
     protected captureImage(event) {
         const context = this.canvas.getContext('2d');
@@ -47,7 +71,6 @@ export default class CameraModal extends Component {
                 });
 
                 const result = await response;
-                console.log(result.url);
                 window.location.href = result.url;
             } catch (error) {
                 console.error('Error uploading image:', error);
@@ -56,7 +79,6 @@ export default class CameraModal extends Component {
     }
 
     async startCamera() {
-        console.log(navigator);
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: true,

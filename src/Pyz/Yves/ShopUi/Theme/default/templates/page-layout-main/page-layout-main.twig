@@ -181,6 +181,8 @@
             {% endembed %}
         {% endblock %}
 
+        {% include molecule('camera-modal') only %}
+
         <div itemscope itemtype="https://schema.org/Product" class="content-wrap">
             {% block pageInfo %}
                 <div class="page-info">
@@ -208,8 +210,6 @@
                 {% block contentBottom %}{% endblock %}
             </main>
         </div>
-
-        {% include molecule('camera-modal') only %}
 
         {% block footer %}
             {% cms_slot 'slt-1' %}

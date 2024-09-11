@@ -34,7 +34,7 @@ class SnapFindController extends AbstractController
             ->handleRequest($request);
 
         try {
-            if ($imageUploadForm->isSubmitted() && $imageUploadForm->isValid()) {
+            if ($imageUploadForm->isSubmitted()) {
                 $searchQueryByImageTransfer = $this->getSearchQueryByImage($imageUploadForm->getData());
 
                 if ($searchQueryByImageTransfer->getSuccess()) {

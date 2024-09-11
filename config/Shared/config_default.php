@@ -32,6 +32,7 @@ use Generated\Shared\Transfer\SubmitPaymentTaxInvoiceTransfer;
 use Monolog\Logger;
 use Pyz\Shared\Console\ConsoleConstants;
 use Pyz\Shared\Scheduler\SchedulerConfig;
+use Pyz\Shared\SnapFind\SnapFindConstants;
 use Pyz\Yves\ShopApplication\YvesBootstrap;
 use Pyz\Zed\Application\Communication\ZedBootstrap;
 use Spryker\Client\RabbitMq\Model\RabbitMqAdapter;
@@ -842,3 +843,10 @@ $config[OauthClientConstants::OAUTH_OPTION_AUDIENCE_FOR_PAYMENT_AUTHORIZE] = 'ao
 $config[TaxAppConstants::OAUTH_PROVIDER_NAME] = OauthAuth0Config::PROVIDER_NAME;
 $config[TaxAppConstants::OAUTH_GRANT_TYPE] = OauthAuth0Config::GRANT_TYPE_CLIENT_CREDENTIALS;
 $config[TaxAppConstants::OAUTH_OPTION_AUDIENCE] = 'aop-app';
+
+// ----------------------------------------------------------------------------
+// ---------------------------- SNAP FIND -------------------------------------
+// ----------------------------------------------------------------------------
+
+$config[SnapFindConstants::GEMINI_API_KEY] = getenv('GEMINI_API_KEY');
+$config[SnapFindConstants::GEMINI_HOST_ENDPOINT] = getenv('GEMINI_HOST_ENDPOINT');

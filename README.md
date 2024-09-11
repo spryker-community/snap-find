@@ -62,4 +62,7 @@ $config[SnapFindConstants::GEMINI_API_KEY] = 'abcabcabcabcabcabcabcabc';
 $config[SnapFindConstants::GEMINI_HOST_ENDPOINT] = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 ```
 
-Congratulations, you've successfully set up *Snap Find* and can access http://yves.de.spryker.local/snap-find to play around with the example implementation.
+Congratulations, you've successfully set up *Snap Find* and can access http://yves.de.spryker.local/ to play around with the example implementation (use the camera icon right next to the search bar).
+
+PLEASE NOTE: If your camera is not requested, you have to enable camera usage in your browser settings for insecure pages.
+Chrome: chrome://flags/#unsafely-treat-insecure-origin-as-secure (add http://yves.de.spryker.local/ , enable the option and restart the browser)

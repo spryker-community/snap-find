@@ -18,6 +18,8 @@ class CatalogController extends SprykerCatalogController
     protected function executeFulltextSearchAction(Request $request): array
     {
         $viewData = parent::executeFulltextSearchAction($request);
+        $viewData['image'] = null;
+
         if (!empty($request->query->get('imageHash'))) {
             $imageHash = $request->query->get('imageHash');
             $image = $this->getFactory()->getStorageRedisClient()->get($imageHash);

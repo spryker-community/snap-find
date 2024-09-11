@@ -39,8 +39,12 @@
 {% endblock %}
 
 {% block title %}
+    {% if not data.image is null %}
     <h3>{{ 'global.search.results' | trans }}     <img style='display:block; width:100px;height:100px;' id='base64image'
                                                        src='data:image/jpeg;base64, {{data.image}}' /></h3>
+        {% else %}
+    <h3>{{ 'global.search.results' | trans }} "<strong class="text-break">{{ data.searchString }}</strong>"</h3>
+    {% endif %}
 {% endblock %}
 
 {% block form %}

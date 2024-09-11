@@ -2,6 +2,7 @@
 
 {% define config = {
     name: 'search-form',
+    tag: 'search-form'
 } %}
 
 {% define attributes = {
@@ -35,6 +36,14 @@
                 },
             } only %}
         </button>
+
+        <button class="{{ config.name }}__button {{ config.name }}__button--submit--test" id="cameraButton">
+            <i class="fa-solid fa-camera">test</i>
+        </button>
+
+        <video id="camera" autoplay></video>
+
+        <canvas id="canvas" style="display: none;"></canvas>
 
         <button type="button" class="{{ config.name }}__button {{ config.name }}__button--close {% block close %}{% endblock %}">
             {% include atom('icon') with {

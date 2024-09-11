@@ -20,7 +20,6 @@ export default class CameraModal extends Component {
 
 
         this.mapEvents();
-        this.startCamera();
     }
 
     protected mapEvents(): void {
@@ -35,6 +34,7 @@ export default class CameraModal extends Component {
 // Close modal
     protected closeModal(){
         this.modal.style.display = 'none';
+        this.stopCamera();
     }
 
 // Click outside and close
@@ -42,6 +42,7 @@ export default class CameraModal extends Component {
         console.log(e.target, this.modal);
         if(e.target == this.modal){
             this.modal.style.display = 'none';
+            this.stopCamera();
         }
     }
 
@@ -87,6 +88,20 @@ export default class CameraModal extends Component {
         } catch (error) {
             console.error('Error accessing camera:', error);
         }
+    }
+
+    async stopCamera() {
+        const videoEl = document.getElementById('camera');
+        // now get the steam
+        const stream = videoEl.srcObject;
+        const tracks = stream.getTracks();
+        // now close each track by having forEach loop
+        tracks.forEach(function(track) {
+            // stopping every track
+            track.stop();
+        });
+        // assign null to srcObject of video
+        videoEl.srcObject = null;
     }
 }
 

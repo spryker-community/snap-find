@@ -4,6 +4,7 @@ export default class SearchForm extends Component {
     protected button;
     protected modal;
     protected cameraButtonMini;
+    protected video;
 
     protected readyCallback(): void {}
 
@@ -11,6 +12,7 @@ export default class SearchForm extends Component {
         this.button = <HTMLElement>document.getElementById('cameraButton');
         this.modal = <HTMLElement>document.getElementById('modal-1');
         this.cameraButtonMini = <HTMLElement>document.getElementById('cameraButtonMini');
+        this.video = <HTMLElement>document.getElementById('camera');
 
         this.mapEvents();
     }
@@ -22,5 +24,17 @@ export default class SearchForm extends Component {
 
     protected showModal(event) {
         this.modal.style.display = "block";
+        this.startCamera();
+    }
+
+    async startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+            });
+            this.video.srcObject = stream;
+        } catch (error) {
+            console.error('Error accessing camera:', error);
+        }
     }
 }
